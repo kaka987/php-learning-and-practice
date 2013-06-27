@@ -15,7 +15,7 @@
  class Hello {
   public $test;
   
-  public function __constuct($test){
+  public function __construct($test){
     $this->test = $test;
     echo "Hello world,".$this->test;
   }
