@@ -58,7 +58,11 @@ class Ym_Logger
      */
     protected static $handlerCache = NULL;
 
-    protected static $isCacheHandler;
+    /**
+     * if cache the log handler
+     * @var [type]
+     */
+    protected static $ifCacheHandler;
 
     //-----------------------------------------------------------------------
 
@@ -74,7 +78,7 @@ class Ym_Logger
         if (static::$levels[$level] >= 5) $fileLevel = 'error';
 
         // need to add log config by $logConfig = Config::getItem('log');
-        $logConfig = array('logPath'=>'./', 'logFile'=>'yeahmobi_'.$fileLevel, 'handler'=>'file', 'isCacheHandler'=>TRUE);
+        $logConfig = array('logPath'=>'./', 'logFile'=>'yeahmobi_'.$fileLevel, 'handler'=>'file', 'ifCacheHandler'=>TRUE);
 
         // get and set the hostname
         static::getHostname();
@@ -242,7 +246,7 @@ class Ym_Logger
 
 			// set the default handler to file
 			if ( ! isset($logConfig['handler'])) $logConfig['handler'] = 'file';
-            if ( ! isset($logConfig['isCacheHandler'])) $logConfig['isCacheHandler'] = TRUE;
+            if ( ! isset($logConfig['ifCacheHandler'])) $logConfig['ifCacheHandler'] = TRUE;
 			foreach ($logConfig as $key=>$item) {
 				static::$$key = $item;
 			}
@@ -283,7 +287,7 @@ class Ym_Logger
 
         $fp = NULL;
 
-        if (static::$isCacheHandler) { //If set to cache the handler
+        if (static::$ifCacheHandler) { //If set to cache the handler
             if (static::$handlerCache === NULL) {
                 if ( ! static::$handlerCache = @fopen($file, 'a+')) {
                     return FALSE; 
@@ -302,7 +306,7 @@ class Ym_Logger
 		fwrite($fp, $message);
 		flock($fp, LOCK_UN);
 		
-        if (static::$isCacheHandler === FALSE) {
+        if (static::$ifCacheHandler === FALSE) {
             fclose($fp);
         }
 
@@ -370,7 +374,7 @@ class Logger_test {
         
         echo 'mem:'.memory_get_usage(),'<br/>';
         echo 'time:'.microtime(true),'<br/>';
-        for($i=50000; $i>0; $i--)
+        for($i=10000; $i>0; $i--)
             Ym_Logger::info($msg);
         echo 'mem:'.memory_get_usage(),'<br/>';
         echo 'time:'.microtime(true),'<br/>';
