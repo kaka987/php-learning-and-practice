@@ -2,4 +2,4 @@
 
 ** [PHP/Go]** http://awezome.net/
 
-** [PHP大牛] ** http://stormzhang.com
+** [PHP/Adroid大牛] ** http://stormzhang.com
